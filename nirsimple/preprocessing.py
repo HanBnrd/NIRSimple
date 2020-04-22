@@ -9,15 +9,13 @@ from os import path
 
 import numpy as np
 import pandas as pd
+from scipy import interpolate
 
 
 class Preprocessing():
 
     def _extinctions(self, wavelengths):
-        # TODO: check wavelengths are different
-        # TODO: implement interpolation
-        # TODO: scale for more than two wavelengths
-        # TODO: add other extinction data sets
+        # TODO: add other extinction datasets
         """
         Get molar extinction coefficients for HbO and HbR corresponding to the
         wavelengths.
@@ -41,10 +39,15 @@ class Preprocessing():
         ex = []
         if len(wavelengths) == 2 and wavelengths[0] != wavelengths[1]:
             ex_path = path.join(path.dirname(__file__), 'data/extinctions.csv')
-            df = pd.read_csv(ex_path, header=0)
-            for wl in wavelengths:
+            df = pd.read_csv(ex_path)
+            wl = df["lambda"].to_numpy()
+            hbo = df["HbO"].to_numpy()
+            hbr = df["HbR"].to_numpy()
+            interp_hbo = interpolate.interp1d(wl, hbo)
+            interp_hbr = interpolate.interp1d(wl, hbr)
+            for wavelength in wavelengths:
                 try:
-                    ex.append(df[df['lambda'] == wl].values[0][1:])
+                    ex.append([interp_hbo(wavelength), interp_hbr(wavelength)])
                 except IndexError:
                     raise Exception("no matching wavelength found")
         else:
