@@ -24,7 +24,7 @@ def _extinctions(wavelengths, table='gratzer'):
     ----------
     wavelengths : list of integers
         The two wavelengths for which to get the molar extinction
-        coefficients.
+        coefficients (in nm).
 
     table : string
         Table to use as molar extinction coefficients.
@@ -37,10 +37,19 @@ def _extinctions(wavelengths, table='gratzer'):
 
     Returns
     -------
-    exs : array
+    ex : array
         numpy array of the extinction coefficients of shape (2, 2). Output is
         [[exHbO_1, exHbR_1], [exHbO_2, exHbR_2]], with [wl_1, wl2] as input.
     """
+    ref = None
+    if table is 'gratzer':
+        ref = "Kollias and Gratzer, 1999"
+    elif table is 'moaveni':
+        ref = "Schmitt and Moaveni, 1970"
+    elif table is 'takatani':
+        ref = "Takatani and Graham, 1979"
+    else:
+        raise Exception("table unknown")
     ex = []
     if len(wavelengths) == 2 and wavelengths[0] != wavelengths[1]:
         ex_file = 'data/' + table + '.csv'
@@ -59,6 +68,12 @@ def _extinctions(wavelengths, table='gratzer'):
     else:
         raise Exception("wavelengths should be 2 different values")
     ex = np.array(ex)
+    print("-----")
+    print("Molar extinction coefficients (in cm-1/M):")
+    print("{} for HbO and {} for HbR at {} nm".format(*ex[0], wavelengths[0]))
+    print("{} for HbO and {} for HbR at {} nm".format(*ex[1], wavelengths[1]))
+    print("(" + ref + ")")
+    print("-----")
     return ex
 
 
@@ -132,7 +147,7 @@ def mbll(delta_od, ch_names, ch_wls, ch_dpfs, ch_distances, unit,
         List of channel names.
 
     ch_wls : list of integers
-        List of channel wavelengths.
+        List of channel wavelengths (in nm).
 
     ch_dpfs : list of floats
         List of channel differential pathlength factors (DPF) (also called
