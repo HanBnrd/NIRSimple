@@ -38,7 +38,8 @@ def _extinctions(wavelengths, table='gratzer'):
     Returns
     -------
     exs : array
-        numpy array of the extinction coefficients of shape (2, 2).
+        numpy array of the extinction coefficients of shape (2, 2). Output is
+        [[exHbO_1, exHbR_1], [exHbO_2, exHbR_2]], with [wl_1, wl2] as input.
     """
     ex = []
     if len(wavelengths) == 2 and wavelengths[0] != wavelengths[1]:
@@ -64,7 +65,7 @@ def _extinctions(wavelengths, table='gratzer'):
 def optical_densities(intensities, refs=None):
     """
     Converts intensities into optical density changes. Changes are relative
-    to the average intensity for each channel.
+    to the average intensity or a reference intensity for each channel.
 
         Optical density from light intensity:
         OD = log10(I_0/I_t)
@@ -87,7 +88,8 @@ def optical_densities(intensities, refs=None):
     -------
     delta_od : array
         numpy array of optical density changes, relative to average
-        intensities for each channel, of shape (channels, data points).
+        intensities or a reference for each channel, of shape (channels, data
+        points).
     """
     if refs is None:
         means = np.mean(np.absolute(intensities), axis=1)
@@ -133,11 +135,11 @@ def mbll(delta_od, ch_names, ch_wls, ch_dpfs, ch_distances, unit,
         List of channel wavelengths.
 
     ch_dpfs : list of floats
-        List of differential pathlength factors (DPF) also called partial
-        pathlengths factors (PPF).
+        List of channel differential pathlength factors (DPF) (also called
+        partial pathlengths factors (PPF)).
 
     ch_distances : list of floats
-        List of source-detector distances for the channels.
+        List of channel source-detector distances.
 
     unit : string
         Unit for ch_distances ('cm' or 'mm').
@@ -151,14 +153,14 @@ def mbll(delta_od, ch_names, ch_wls, ch_dpfs, ch_distances, unit,
     Returns
     -------
     delta_c : array
-        numpy array of concentration changes, relative to average
-        concentration for each channel, of shape (channels, data points).
+        numpy array of concentration changes for each channel, of shape
+        (channels, data points).
 
     new_ch_names : list of strings
         New list of channel names.
 
     new_ch_types : list of strings
-        New list of channel types (HbO or HbR).
+        New list of channel types (hbo or hbr).
     """
     if unit == 'cm':
         pass
