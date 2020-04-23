@@ -14,22 +14,28 @@ from scipy import interpolate
 
 class Preprocessing():
 
-    def _extinctions(self, wavelengths):
-        # TODO: add other extinction datasets
+    def _extinctions(self, wavelengths, table='gratzer'):
         """
         Get molar extinction coefficients for HbO and HbR corresponding to the
         wavelengths.
 
             Values for molar extinction coefficients in [cm-1/(moles/liter)] or
-            [cm-1/M] based on the wavelength in [nm], compiled by Scott Prahl
-            using data from W. B. Gratzer and N. Kollias.
-            (https://omlc.org/spectra/hemoglobin/summary.html)
+            [cm-1/M] based on the wavelength in [nm], compiled by Scott Prahl.
 
         Parameters
         ----------
         wavelengths : list of integers
             The two wavelengths for which to get the molar extinction
             coefficients.
+
+        table : string
+            Table to use as molar extinction coefficients.
+            'gratzer': for data from W. B. Gratzer and K. Kollias (1999)
+            (https://omlc.org/spectra/hemoglobin/summary.html)
+            'moaveni': for data from J. M. Schmitt and M. K. Moaveni (1970)
+            (https://omlc.org/spectra/hemoglobin/moaveni.html)
+            'takatani': for data from S. Takatani and M. D. Graham(1979)
+            (https://omlc.org/spectra/hemoglobin/takatani.html)
 
         Returns
         -------
@@ -38,17 +44,18 @@ class Preprocessing():
         """
         ex = []
         if len(wavelengths) == 2 and wavelengths[0] != wavelengths[1]:
-            ex_path = path.join(path.dirname(__file__), 'data/extinctions.csv')
+            ex_file = 'data/' + table + '.csv'
+            ex_path = path.join(path.dirname(__file__), ex_file)
             df = pd.read_csv(ex_path)
-            wl = df["lambda"].to_numpy()
-            hbo = df["HbO"].to_numpy()
-            hbr = df["HbR"].to_numpy()
+            wl = df['lambda'].to_numpy()
+            hbo = df['HbO'].to_numpy()
+            hbr = df['HbR'].to_numpy()
             interp_hbo = interpolate.interp1d(wl, hbo)
             interp_hbr = interpolate.interp1d(wl, hbr)
             for wavelength in wavelengths:
                 try:
                     ex.append([interp_hbo(wavelength), interp_hbr(wavelength)])
-                except IndexError:
+                except ValueError:
                     raise Exception("no matching wavelength found")
         else:
             raise Exception("wavelengths should be 2 different values")
@@ -95,7 +102,8 @@ class Preprocessing():
             warnings.warn("some intensities are negative or equal to zero")
         return delta_od
 
-    def mbll(self, delta_od, ch_names, ch_wls, ch_dpfs, ch_distances, unit):
+    def mbll(self, delta_od, ch_names, ch_wls, ch_dpfs, ch_distances, unit,
+             table='gratzer'):
         """
         Apply the modified Beer-Lambert law (MBLL) to optical density changes
         in order to obtain concentration changes in HbO (oxy) and HbR (deoxy)
@@ -134,6 +142,12 @@ class Preprocessing():
         unit : string
             Unit for ch_distances ('cm' or 'mm').
 
+        table : string
+            Table to use as molar extinction coefficients.
+            'gratzer': for data from W. B. Gratzer and K. Kollias (1999)
+            'moaveni': for data from J. M. Schmitt and M. K. Moaveni (1970)
+            'takatani': for data from S. Takatani and M. D. Graham(1979)
+
         Returns
         -------
         delta_c : array
@@ -146,9 +160,9 @@ class Preprocessing():
         new_ch_types : list of strings
             New list of channel types (HbO or HbR).
         """
-        if unit == "cm":
+        if unit == 'cm':
             pass
-        elif unit == "mm":
+        elif unit == 'mm':
             ch_distances = np.array(ch_distances) / 10
             ch_distances = ch_distances.tolist()
         else:
@@ -163,7 +177,7 @@ class Preprocessing():
             sub_delta_od = np.swapaxes(sub_delta_od, 0, 1)  # timepoints first
             sub_delta_od = np.expand_dims(sub_delta_od, axis=2)
 
-            ex = self._extinctions([ch_wls[idx_1], ch_wls[idx_2]])
+            ex = self._extinctions([ch_wls[idx_1], ch_wls[idx_2]], table)
             ex_inv = np.linalg.inv(ex)
             ex_inv = np.tile(ex_inv, (len(sub_delta_od), 1, 1))
 
@@ -179,8 +193,8 @@ class Preprocessing():
             delta_c.append(sub_delta_c[1])
             new_ch_names.append(name)
             new_ch_names.append(name)
-            new_ch_types.append("hbo")
-            new_ch_types.append("hbr")
+            new_ch_types.append('hbo')
+            new_ch_types.append('hbr')
 
         delta_c = np.array(delta_c)
         delta_c = np.squeeze(delta_c)
