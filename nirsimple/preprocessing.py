@@ -12,13 +12,13 @@ import pandas as pd
 from scipy import interpolate
 
 
-def _extinctions(wavelengths, table='gratzer'):
+def _extinctions(wavelengths, table='wray'):
     """
     Get molar extinction coefficients for HbO and HbR corresponding to the
     wavelengths.
 
         Values for molar extinction coefficients in [cm-1/(moles/liter)] or
-        [cm-1/M] based on the wavelength in [nm], compiled by Scott Prahl.
+        [cm-1/M] based on the wavelength in [nm].
 
     Parameters
     ----------
@@ -28,11 +28,13 @@ def _extinctions(wavelengths, table='gratzer'):
 
     table : string
         Table to use as molar extinction coefficients.
-        'gratzer': for data from W. B. Gratzer and K. Kollias (1999)
+        'wray': data from S. Wray et al., 1988
+        'cope': data from M. Cope, 1991
+        'gratzer': data from W.B. Gratzer and K. Kollias compiled by S. Prahl
         (https://omlc.org/spectra/hemoglobin/summary.html)
-        'moaveni': for data from J. M. Schmitt and M. K. Moaveni (1970)
+        'moaveni': data from M.K. Moaveni and J.M. Schmitt compiled by S. Prahl
         (https://omlc.org/spectra/hemoglobin/moaveni.html)
-        'takatani': for data from S. Takatani and M. D. Graham(1979)
+        'takatani': data from S. Takatani and M.D. Graham compiled by S. Prahl
         (https://omlc.org/spectra/hemoglobin/takatani.html)
 
     Returns
@@ -42,17 +44,21 @@ def _extinctions(wavelengths, table='gratzer'):
         [[exHbO_1, exHbR_1], [exHbO_2, exHbR_2]], with [wl_1, wl2] as input.
     """
     ref = None
-    if table is 'gratzer':
-        ref = "Kollias and Gratzer, 1999"
-    elif table is 'moaveni':
-        ref = "Schmitt and Moaveni, 1970"
-    elif table is 'takatani':
-        ref = "Takatani and Graham, 1979"
+    if table == 'wray':
+        ref = "S. Wray et al., 1988"
+    elif table == 'cope':
+        ref = "M. Cope, 1991"
+    elif table == 'gratzer':
+        ref = "W.B. Gratzer and K. Kollias compiled by S. Prahl"
+    elif table == 'moaveni':
+        ref = "M.K. Moaveni and J.M. Schmitt compiled by S. Prahl"
+    elif table == 'takatani':
+        ref = "S. Takatani and M.D. Graham compiled by S. Prahl"
     else:
         raise Exception("table unknown")
     ex = []
     if len(wavelengths) == 2 and wavelengths[0] != wavelengths[1]:
-        ex_file = 'data/' + table + '.csv'
+        ex_file = 'tables/' + table + '.csv'
         ex_path = path.join(path.dirname(__file__), ex_file)
         df = pd.read_csv(ex_path)
         wl = df['lambda'].to_numpy()
@@ -120,7 +126,7 @@ def optical_densities(intensities, refs=None):
 
 
 def mbll(delta_od, ch_names, ch_wls, ch_dpfs, ch_distances, unit,
-         table='gratzer'):
+         table='wray'):
     """
     Apply the modified Beer-Lambert law (MBLL) to optical density changes
     in order to obtain concentration changes in HbO (oxy) and HbR (deoxy)
@@ -161,9 +167,11 @@ def mbll(delta_od, ch_names, ch_wls, ch_dpfs, ch_distances, unit,
 
     table : string
         Table to use as molar extinction coefficients.
-        'gratzer': for data from W. B. Gratzer and K. Kollias (1999)
-        'moaveni': for data from J. M. Schmitt and M. K. Moaveni (1970)
-        'takatani': for data from S. Takatani and M. D. Graham(1979)
+        'wray': data from S. Wray et al., 1988
+        'cope': data from M. Cope, 1991
+        'gratzer': data from W.B. Gratzer and K. Kollias compiled by S. Prahl
+        'moaveni': data from M.K. Moaveni and J.M. Schmitt compiled by S. Prahl
+        'takatani': data from S. Takatani and M.D. Graham compiled by S. Prahl
 
     Returns
     -------
