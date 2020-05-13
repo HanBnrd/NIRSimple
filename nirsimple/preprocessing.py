@@ -83,7 +83,7 @@ def _extinctions(wavelengths, table='wray'):
     return ex
 
 
-def od_changes(intensities, refs=None):
+def intensities_to_od_changes(intensities, refs=None):
     """
     Converts intensities into optical density changes. Changes are relative
     to the average intensity or a reference intensity for each channel.
@@ -119,9 +119,51 @@ def od_changes(intensities, refs=None):
     else:
         references = np.expand_dims(refs, axis=1)
         delta_od = -np.log10(np.absolute(intensities)/references)
+        if np.any(references <= 0):
+            warnings.warn("some references are negative or equal to zero")
 
     if np.any(intensities <= 0):
         warnings.warn("some intensities are negative or equal to zero")
+    return delta_od
+
+
+def od_to_od_changes(optical_densities, refs=None):
+    """
+    Convert optical densities into optical density changes, relative to the
+    average optical density or a reference optical density for each channel.
+
+        Optical density changes relative to average optical density:
+        delta_OD = OD - OD_average
+
+    Parameters
+    ----------
+    optical_densities : array
+        numpy array of optical densities, must have the correct shape
+        (channels, data points).
+
+    refs: list of floats
+        List of reference optical densities to use instead of averages, length
+        must be equal to the number of channels.
+
+    Returns
+    -------
+    delta_od : array
+        numpy array of optical density changes, relative to average optical
+        densities or a reference for each channel, of shape (channels, data
+        points).
+    """
+    if refs is None:
+        means = np.mean(np.absolute(optical_densities), axis=1)
+        means = np.expand_dims(means, axis=1)
+        delta_od = np.absolute(optical_densities) - means
+    else:
+        references = np.expand_dims(refs, axis=1)
+        delta_od = np.absolute(optical_densities) - references
+        if np.any(references <= 0):
+            warnings.warn("some references are negative or equal to zero")
+
+    if np.any(optical_densities <= 0):
+        warnings.warn("some optical densities are negative or equal to zero")
     return delta_od
 
 
@@ -138,11 +180,11 @@ def mbll(delta_od, ch_names, ch_wls, ch_dpfs, ch_distances, unit,
         With two different wavelengths we obtain a set of linear equations
         solved with matrices:
         [[Dod_1]  = [[e_HbO_1*l*DPF_1, e_HbR_1*l*DPF_1]  . [[Dc_HbO]
-            [Dod_2]]    [e_HbO_2*l*DPF_2, e_HbR_2*l*DPF_2]]    [Dc_HbR]]
+        [Dod_2]]    [e_HbO_2*l*DPF_2, e_HbR_2*l*DPF_2]]    [Dc_HbR]]
 
         Equivalent to:
         [[Dc_HbO]  = [[e_HbO_1, e_HbR_1] -1 . [[Dod_1/(l*DPF_1)]
-            [DC_HbR]]    [e_HbO_2, e_HbR_2]]      [Dod_2/(l*DPF_2)]]
+        [DC_HbR]]    [e_HbO_2, e_HbR_2]]      [Dod_2/(l*DPF_2)]]
 
     Parameters
     ----------
