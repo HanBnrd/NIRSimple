@@ -8,7 +8,7 @@ setuptools.setup(
     version="0.0.1",
     author="Johann Benerradi",
     author_email="@",
-    description="NIRS processing made simple",
+    description="fNIRS signal processing made simple",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/HanBnrd/NIRSimple",

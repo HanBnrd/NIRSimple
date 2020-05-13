@@ -1,7 +1,7 @@
 """
 NIRSimple
 ---------
-NIRS processing made simple
+fNIRS signal processing made simple
 """
 
 import warnings
