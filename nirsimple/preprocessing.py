@@ -43,17 +43,17 @@ def _extinctions(wavelengths, table='wray'):
         numpy array of the extinction coefficients of shape (2, 2). Output is
         [[exHbO_1, exHbR_1], [exHbO_2, exHbR_2]], with [wl_1, wl2] as input.
     """
-    ref = None
+    citation = None
     if table == 'wray':
-        ref = "S. Wray et al., 1988"
+        citation = "S. Wray et al., 1988"
     elif table == 'cope':
-        ref = "M. Cope, 1991"
+        citation = "M. Cope, 1991"
     elif table == 'gratzer':
-        ref = "W.B. Gratzer and K. Kollias compiled by S. Prahl"
+        citation = "W.B. Gratzer and K. Kollias compiled by S. Prahl"
     elif table == 'moaveni':
-        ref = "M.K. Moaveni and J.M. Schmitt compiled by S. Prahl"
+        citation = "M.K. Moaveni and J.M. Schmitt compiled by S. Prahl"
     elif table == 'takatani':
-        ref = "S. Takatani and M.D. Graham compiled by S. Prahl"
+        citation = "S. Takatani and M.D. Graham compiled by S. Prahl"
     else:
         raise Exception("table unknown")
     ex = []
@@ -78,12 +78,12 @@ def _extinctions(wavelengths, table='wray'):
     print("Molar extinction coefficients (in cm-1/M):")
     print("{} for HbO and {} for HbR at {} nm".format(*ex[0], wavelengths[0]))
     print("{} for HbO and {} for HbR at {} nm".format(*ex[1], wavelengths[1]))
-    print("(" + ref + ")")
+    print("(" + citation + ")")
     print("-----")
     return ex
 
 
-def optical_densities(intensities, refs=None):
+def od_changes(intensities, refs=None):
     """
     Converts intensities into optical density changes. Changes are relative
     to the average intensity or a reference intensity for each channel.
@@ -128,8 +128,9 @@ def optical_densities(intensities, refs=None):
 def mbll(delta_od, ch_names, ch_wls, ch_dpfs, ch_distances, unit,
          table='wray'):
     """
-    Apply the modified Beer-Lambert law (MBLL) to optical density changes
-    in order to obtain concentration changes in HbO (oxy) and HbR (deoxy)
+    Apply the modified Beer-Lambert law (from Delpy et al., 1988) to optical
+    density changes in order to obtain concentration changes in HbO (oxy) and
+    HbR (deoxy).
 
         Modified Beer-Lambert law:
         Dod_wl = e_HbO_wl*Dc_HbO*l*DPF_wl + e_HbR_wl*Dc_HbR*l*DPF_wl
