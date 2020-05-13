@@ -219,8 +219,8 @@ def mbll(delta_od, ch_names, ch_wls, ch_dpfs, ch_distances, unit,
     Returns
     -------
     delta_c : array
-        numpy array of concentration changes for each channel, of shape
-        (channels, data points).
+        numpy array of concentration changes in [moles/liter] or [M] for each
+        channel, of shape (channels, data points).
 
     new_ch_names : list of strings
         New list of channel names.
