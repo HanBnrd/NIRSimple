@@ -12,7 +12,7 @@ import pandas as pd
 from scipy import interpolate
 
 
-def _extinctions(wavelengths, table='wray'):
+def _extinctions(wavelengths, table='wray', verbose=True):
     """
     Get molar extinction coefficients for HbO and HbR corresponding to the
     wavelengths.
@@ -73,13 +73,16 @@ def _extinctions(wavelengths, table='wray'):
                 raise Exception("no matching wavelength found")
     else:
         raise Exception("wavelengths should be 2 different values")
+
+    if verbose is True:
+        print("-----")
+        print("Molar extinction coefficients (in cm-1/M):")
+        print("{} nm | HbO: {}, HbR: {}".format(wavelengths[0], *ex[0]))
+        print("{} nm | HbO: {}, HbR: {}".format(wavelengths[1], *ex[1]))
+        print("(" + citation + ")")
+        print("-----")
+
     ex = np.array(ex)
-    print("-----")
-    print("Molar extinction coefficients (in cm-1/M):")
-    print("{} for HbO and {} for HbR at {} nm".format(*ex[0], wavelengths[0]))
-    print("{} for HbO and {} for HbR at {} nm".format(*ex[1], wavelengths[1]))
-    print("(" + citation + ")")
-    print("-----")
     return ex
 
 
@@ -226,7 +229,7 @@ def mbll(delta_od, ch_names, ch_wls, ch_dpfs, ch_distances, unit,
         New list of channel names.
 
     new_ch_types : list of strings
-        New list of channel types (hbo or hbr).
+        New list of channel types ('hbo' or 'hbr').
     """
     if unit == 'cm':
         pass
@@ -245,7 +248,7 @@ def mbll(delta_od, ch_names, ch_wls, ch_dpfs, ch_distances, unit,
         sub_delta_od = np.swapaxes(sub_delta_od, 0, 1)  # timepoints first
         sub_delta_od = np.expand_dims(sub_delta_od, axis=2)
 
-        ex = _extinctions([ch_wls[idx_1], ch_wls[idx_2]], table)
+        ex = _extinctions([ch_wls[idx_1], ch_wls[idx_2]], table, verbose=False)
         ex_inv = np.linalg.inv(ex)
         ex_inv = np.tile(ex_inv, (len(sub_delta_od), 1, 1))
 
