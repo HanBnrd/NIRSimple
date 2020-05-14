@@ -9,9 +9,9 @@ This package handles data as numpy arrays. It can be used with [MNE](https://mne
 
 ### Features
 
-- conversion from light intensity to optical density changes
-- conversion from optical density changes to concentration changes with the modified Beer-Lambert law (options for different extinction coefficient tables)
-- signal correction with correlation based signal improvement (CBSI)
+- conversion from **light intensity** to **optical density changes**
+- conversion from **optical density changes** to **concentration changes** with the **modified Beer-Lambert law** (options for different extinction coefficient tables)
+- signal correction with **correlation based signal improvement** (CBSI)
 
 
 ### Installation
