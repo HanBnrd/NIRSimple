@@ -13,3 +13,11 @@ In a terminal or a command prompt, run:
 ```
 pip install https://github.com/HanBnrd/NIRSimple/archive/master.zip
 ```
+
+### Keep the package up to date
+
+In a terminal or a command prompt, run:
+
+```
+pip install --upgrade https://github.com/HanBnrd/NIRSimple/archive/master.zip
+```
