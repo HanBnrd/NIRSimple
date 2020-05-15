@@ -9,7 +9,8 @@ import numpy as np
 
 def cbsi(delta_c, ch_names, ch_types):
     """
-    Apply correlation based signal improvement (from Cui at al., 2010).
+    Apply correlation based signal improvement (from Cui at al., 2010) to
+    hemoglobin concentration changes.
 
         Correlation based signal improvement (CBSI):
         x_0 = (1/2)*(x-alpha*x)
@@ -18,14 +19,15 @@ def cbsi(delta_c, ch_names, ch_types):
     Parameters
     ----------
     delta_c : array
-        numpy array of concentration changes in [moles/liter] or [M] for each
-        channel, of shape (channels, data points).
+        numpy array of hemoglobin concentration changes in [moles/liter] or [M]
+        for each channel, of shape (channels, data points).
 
     ch_names : list of strings
         List of channel names.
 
     ch_types : list of strings
-        List of channel types ('hbo' or 'hbr').
+        List of channel types ('hbo' for oxygenated hemoglobin and 'hbr' for
+        deoxygenated hemoglobin).
 
     Returns
     -------
@@ -37,7 +39,8 @@ def cbsi(delta_c, ch_names, ch_types):
         New list of channel names.
 
     new_ch_types : list of strings
-        New list of channel types ('hbo' or 'hbr').
+        New list of channel types ('hbo' for oxygenated hemoglobin and 'hbr'
+        for deoxygenated hemoglobin).
     """
     delta_c_0 = []
     new_ch_names = []

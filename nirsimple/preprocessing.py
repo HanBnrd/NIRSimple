@@ -14,8 +14,8 @@ from scipy import interpolate
 
 def _extinctions(wavelengths, table='wray', verbose=True):
     """
-    Get molar extinction coefficients for HbO and HbR corresponding to the
-    wavelengths.
+    Get molar extinction coefficients for oxygenated hemoglobin (HbO) and
+    deoxygenated hemoglobin (HbR) corresponding to the wavelengths.
 
         Values for molar extinction coefficients in [cm-1/(moles/liter)] or
         [cm-1/M] based on the wavelength in [nm].
@@ -62,8 +62,8 @@ def _extinctions(wavelengths, table='wray', verbose=True):
         ex_path = path.join(path.dirname(__file__), ex_file)
         df = pd.read_csv(ex_path)
         wl = df['lambda'].to_numpy()
-        hbo = df['HbO'].to_numpy()
-        hbr = df['HbR'].to_numpy()
+        hbo = df['hbo'].to_numpy()
+        hbr = df['hbr'].to_numpy()
         interp_hbo = interpolate.interp1d(wl, hbo)
         interp_hbr = interpolate.interp1d(wl, hbr)
         for wavelength in wavelengths:
@@ -174,8 +174,8 @@ def mbll(delta_od, ch_names, ch_wls, ch_dpfs, ch_distances, unit,
          table='wray'):
     """
     Apply the modified Beer-Lambert law (from Delpy et al., 1988) to optical
-    density changes in order to obtain concentration changes in HbO (oxy) and
-    HbR (deoxy).
+    density changes in order to obtain concentration changes in oxygenated
+    hemoglobin (HbO) and deoxygenated hemoglobin (HbR).
 
         Modified Beer-Lambert law:
         Dod_wl = e_HbO_wl*Dc_HbO*l*DPF_wl + e_HbR_wl*Dc_HbR*l*DPF_wl
@@ -222,14 +222,15 @@ def mbll(delta_od, ch_names, ch_wls, ch_dpfs, ch_distances, unit,
     Returns
     -------
     delta_c : array
-        numpy array of concentration changes in [moles/liter] or [M] for each
-        channel, of shape (channels, data points).
+        numpy array of hemoglobin concentration changes in [moles/liter] or [M]
+        for each channel, of shape (channels, data points).
 
     new_ch_names : list of strings
         New list of channel names.
 
     new_ch_types : list of strings
-        New list of channel types ('hbo' or 'hbr').
+        New list of channel types ('hbo' for oxygenated hemoglobin and 'hbr'
+        for deoxygenated hemoglobin).
     """
     if unit == 'cm':
         pass
