@@ -30,3 +30,8 @@ In a terminal or a command prompt, run:
 ```
 pip install --upgrade https://github.com/HanBnrd/NIRSimple/archive/master.zip
 ```
+
+
+### Tutorial
+
+An example of using NIRSimple with MNE can be found [here](./examples/simple_probe.ipynb).
