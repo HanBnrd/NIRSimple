@@ -1,7 +1,5 @@
 """
-NIRSimple
----------
-fNIRS signal processing made simple
+The processing module contains functions to process fNIRS signals.
 """
 
 import numpy as np

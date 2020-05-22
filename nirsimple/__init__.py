@@ -1,7 +1,7 @@
 """
 NIRSimple
----------
-fNIRS signal processing made simple
+=========
+fNIRS signal processing simplified
 """
 
 from .preprocessing import intensities_to_od_changes

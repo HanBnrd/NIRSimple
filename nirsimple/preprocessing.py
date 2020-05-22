@@ -1,7 +1,5 @@
 """
-NIRSimple
----------
-fNIRS signal processing made simple
+The preprocessing module contains functions to preprocess fNIRS signals.
 """
 
 import warnings

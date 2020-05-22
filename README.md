@@ -1,8 +1,8 @@
 # NIRSimple
 
-> fNIRS signal processing made simple
+> fNIRS signal processing simplified
 
-NIRSimple is a Python 3 package for fNIRS with a focus on signal processing. It gives control on every step of the preprocessing, enabling to adjust parameters and use different methods from the scientific literature.
+NIRSimple is a Python 3 package for fNIRS with a focus on signal processing. It gives control on preprocessing and processing, enabling to adjust parameters and use different methods from the scientific literature.
 
 This package handles data as numpy arrays. It can be used with [MNE](https://mne.tools/stable/index.html) pipelines by creating MNE-specific objects (Raw, Epochs, ...) from numpy arrays.
 
