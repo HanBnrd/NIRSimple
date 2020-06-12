@@ -13,6 +13,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/HanBnrd/NIRSimple",
     packages=setuptools.find_packages(),
+    package_data={"nirsimple": ["tables/*.csv"]},
     install_requires=[
         "numpy",
         "pandas",
@@ -23,5 +24,5 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    python_requires='>=3.6',
+    python_requires=">=3.6",
 )

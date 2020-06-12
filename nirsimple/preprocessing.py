@@ -56,8 +56,8 @@ def _extinctions(wavelengths, table='wray', verbose=True):
         raise Exception("table unknown")
     ex = []
     if len(wavelengths) == 2 and wavelengths[0] != wavelengths[1]:
-        ex_file = 'tables/' + table + '.csv'
-        ex_path = path.join(path.dirname(__file__), ex_file)
+        ex_file = table + '.csv'
+        ex_path = path.join(path.dirname(__file__), 'tables', ex_file)
         df = pd.read_csv(ex_path)
         wl = df['lambda'].to_numpy()
         hbo = df['hbo'].to_numpy()
