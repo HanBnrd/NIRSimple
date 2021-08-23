@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="nirsimple",
-    version="0.0.1",
+    version="0.1.0",
     author="Johann Benerradi",
     author_email="@",
     description="fNIRS signal processing simplified",
