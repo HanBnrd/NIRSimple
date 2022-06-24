@@ -19,7 +19,7 @@ This package handles data as numpy arrays. It can be used with [MNE](https://mne
 In a terminal or a command prompt, run:
 
 ```
-pip install https://github.com/HanBnrd/NIRSimple/archive/master.zip
+pip install nirsimple
 ```
 
 
@@ -28,7 +28,7 @@ pip install https://github.com/HanBnrd/NIRSimple/archive/master.zip
 In a terminal or a command prompt, run:
 
 ```
-pip install --upgrade https://github.com/HanBnrd/NIRSimple/archive/master.zip
+pip install --upgrade nirsimple
 ```
 
 
