@@ -7,7 +7,7 @@ setuptools.setup(
     name="nirsimple",
     version="0.1.1",
     author="Johann Benerradi",
-    author_email="@",
+    author_email="johann.benerradi@gmail.com",
     description="fNIRS signal processing simplified",
     long_description=long_description,
     long_description_content_type="text/markdown",
