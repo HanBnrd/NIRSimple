@@ -5,13 +5,14 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="nirsimple",
-    version="0.1.0",
+    version="0.1.1",
     author="Johann Benerradi",
     author_email="@",
     description="fNIRS signal processing simplified",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/HanBnrd/NIRSimple",
+    license='MIT',
     packages=setuptools.find_packages(),
     package_data={"nirsimple": ["tables/*.csv"]},
     install_requires=[
