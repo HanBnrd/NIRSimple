@@ -14,7 +14,11 @@ This package handles data as numpy arrays. It can be used with [MNE](https://mne
 - signal correction with **correlation based signal improvement** (CBSI)
 
 
-### Installation
+### Documentation
+The documentation of the library can be found here: https://hanbnrd.github.io/NIRSimple.
+
+
+### Install
 
 In a terminal or a command prompt, run:
 
@@ -32,6 +36,6 @@ pip install --upgrade nirsimple
 ```
 
 
-### Tutorial
+### Example
 
 An example of using NIRSimple with MNE can be found [here](https://github.com/HanBnrd/NIRSimple/blob/master/examples/simple_probe.ipynb).
