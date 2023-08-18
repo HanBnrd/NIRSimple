@@ -30,7 +30,7 @@ Features:
 
 Acknowledgements
 ================
-Until there is an article specifically on NIRSimple, please cite `this article <https://doi.org/10.3389/fnrgo.2023.994969>`_.
+Until there is an article specifically on `NIRSimple`, please cite `this article <https://doi.org/10.3389/fnrgo.2023.994969>`_.
 
 
 Indices and tables
