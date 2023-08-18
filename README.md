@@ -39,3 +39,8 @@ pip install --upgrade nirsimple
 ### Example
 
 An example of using NIRSimple with MNE can be found [here](https://github.com/HanBnrd/NIRSimple/blob/master/examples/simple_probe.ipynb).
+
+
+### Acknowledgements
+
+Until there is an article specifically on NIRSimple, please cite [this article](https://doi.org/10.3389/fnrgo.2023.994969).
