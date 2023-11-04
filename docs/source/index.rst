@@ -3,6 +3,8 @@
 Welcome to NIRSimple's documentation!
 =====================================
 
+`fNIRS signal processing simplified`
+
 `NIRSimple` is a Python 3 package for fNIRS with a focus on signal processing. It
 gives control on preprocessing and processing, enabling to adjust parameters
 and use different methods from the scientific literature.
@@ -18,10 +20,21 @@ Features:
     coefficient tables)
   * signal correction with correlation based signal improvement (CBSI)
 
+.. image:: https://img.shields.io/badge/license-MIT-lightgrey
+  :target: https://github.com/HanBnrd/NIRSimple/blob/master/LICENSE
+
+.. image:: https://img.shields.io/github/actions/workflow/status/HanBnrd/NIRSimple/sphinx.yml?label=pipeline
+  :target: https://github.com/HanBnrd/NIRSimple
+
+.. image:: https://img.shields.io/pypi/v/nirsimple
+  :target: https://pypi.org/project/nirsimple/
+
+.. image:: https://static.pepy.tech/badge/nirsimple
+  :target: https://pepy.tech/project/nirsimple
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Contents
 
    install
    modules
@@ -30,6 +43,7 @@ Features:
 
 Acknowledgements
 ================
+
 Until there is an article specifically on `NIRSimple`, please cite `this article <https://doi.org/10.3389/fnrgo.2023.994969>`_.
 
 
