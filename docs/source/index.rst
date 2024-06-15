@@ -1,7 +1,7 @@
 .. NIRSimple documentation master file
 
-Welcome to NIRSimple's documentation!
-=====================================
+NIRSimple
+=========
 
 `fNIRS signal processing simplified`
 
@@ -15,10 +15,19 @@ objects (Raw, Epochs, ...) from numpy arrays.
 
 Features:
   * conversion from light intensity to optical density changes
+  * differential pathlength factor (DPF) from wavelength and age
   * conversion from optical density changes to hemoglobin concentration changes
     with the modified Beer-Lambert law (options for different extinction
     coefficient tables)
   * signal correction with correlation based signal improvement (CBSI)
+
+.. role::  raw-html(raw)
+    :format: html
+
+:raw-html:`&rarr;` `Source code on GitHub <https://github.com/HanBnrd/NIRSimple>`_
+
+.. image:: https://img.shields.io/badge/doi-10.3389%2Ffnrgo.2023.994969-blue
+  :target: https://doi.org/10.3389/fnrgo.2023.994969
 
 .. image:: https://img.shields.io/badge/license-MIT-lightgrey
   :target: https://github.com/HanBnrd/NIRSimple/blob/master/LICENSE
@@ -29,11 +38,8 @@ Features:
 .. image:: https://img.shields.io/pypi/v/nirsimple
   :target: https://pypi.org/project/nirsimple/
 
-.. image:: https://static.pepy.tech/badge/nirsimple
-  :target: https://pepy.tech/project/nirsimple
-
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Contents
 
    install
@@ -42,13 +48,13 @@ Features:
 
 
 Acknowledgements
-================
+----------------
 
 Until there is an article specifically on `NIRSimple`, please cite `this article <https://doi.org/10.3389/fnrgo.2023.994969>`_.
 
 
 Indices and tables
-==================
+------------------
 
 * :ref:`genindex`
 * :ref:`modindex`

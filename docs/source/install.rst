@@ -2,15 +2,15 @@ Install
 =======
 
 `NIRSimple` is available on `PyPI <https://pypi.org/project/nirsimple/>`_ and
-can be installed via :code:`pip`:
+can be installed using `pip`:
 
 .. code-block:: console
 
-   $ pip install nirsimple
+   pip install nirsimple
 
 
 To upgrade `NIRSimple` to the latest version:
 
 .. code-block:: console
 
-   $ pip install --upgrade nirsimple
+   pip install --upgrade nirsimple

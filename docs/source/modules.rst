@@ -1,8 +1,19 @@
-NIRSimple
-=========
+NIRSimple API
+=============
 
-.. toctree::
-   :maxdepth: 4
+preprocessing
+-------------
 
-   preprocessing
-   processing
+.. automodule:: preprocessing
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+processing
+----------
+
+.. automodule:: processing
+   :members:
+   :undoc-members:
+   :show-inheritance:
