@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NIRSimple example &mdash; NIRSimple 0.1.6 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=6e0256f3"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Example" href="../example.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            NIRSimple
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">NIRSimple API</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../example.html">Example</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">NIRSimple example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Load-data-from-the-file">Load data from the file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Get-fNIRS-light-intensities-as-a-numpy-array">Get fNIRS light intensities as a numpy array</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Convert-light-intensities-to-optical-density-changes">Convert light intensities to optical density changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Get-channel-info-as-lists">Get channel info as lists</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Convert-optical-density-changes-to-concentration-changes">Convert optical density changes to concentration changes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Plot-data-with-MNE">Plot data with MNE</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Signal-correction">Signal correction</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Plot-corrected-data-with-MNE">Plot corrected data with MNE</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">NIRSimple</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../example.html">Example</a></li>
+      <li class="breadcrumb-item active">NIRSimple example</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/examples/simple-probe.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="NIRSimple-example">
+<h1>NIRSimple example<a class="headerlink" href="#NIRSimple-example" title="Link to this heading"></a></h1>
+<p>→ <a class="reference external" href="https://github.com/HanBnrd/NIRSimple/blob/master/docs/source/examples/simple-probe.ipynb">Download this notebook</a></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.io</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">nirsimple</span> <span class="k">as</span> <span class="nn">ns</span>
+</pre></div>
+</div>
+</div>
+<p>The data used in this example is from the <a class="reference external" href="https://homer-fnirs.org/documentation/">Homer MATLAB toolbox tutorial</a> and can be downloaded <a class="reference external" href="http://www.nmr.mgh.harvard.edu/martinos/software/homer/SampleData.zip">here</a>.</p>
+<p>Download the zip archive and extract it. In this example we are just going to use <code class="docutils literal notranslate"><span class="pre">Simple_Probe.nirs</span></code> which is in the <code class="docutils literal notranslate"><span class="pre">Example1_Simple_Probe</span></code> folder of the archive.</p>
+<section id="Load-data-from-the-file">
+<h2>Load data from the file<a class="headerlink" href="#Load-data-from-the-file" title="Link to this heading"></a></h2>
+<p>Load the file as a MATLAB file:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">file_path</span> <span class="o">=</span> <span class="s2">&quot;./Simple_Probe.nirs&quot;</span>  <span class="c1"># replace by the path to Simple_Probe.nirs</span>
+<span class="n">simple_probe</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Get-fNIRS-light-intensities-as-a-numpy-array">
+<h2>Get fNIRS light intensities as a numpy array<a class="headerlink" href="#Get-fNIRS-light-intensities-as-a-numpy-array" title="Link to this heading"></a></h2>
+<p>Get signals from Simple Probe:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">intensities</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">swapaxes</span><span class="p">(</span><span class="n">simple_probe</span><span class="p">[</span><span class="s1">&#39;d&#39;</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Intensity data shape: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">intensities</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  number of channels: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">intensities</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  number of time points: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">intensities</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Intensity data shape: (8, 1200)
+  number of channels: 8
+  number of time points: 1200
+</pre></div></div>
+</div>
+</section>
+<section id="Convert-light-intensities-to-optical-density-changes">
+<h2>Convert light intensities to optical density changes<a class="headerlink" href="#Convert-light-intensities-to-optical-density-changes" title="Link to this heading"></a></h2>
+<p>Get optical density changes relative to the average intensity of each channel:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dod</span> <span class="o">=</span> <span class="n">ns</span><span class="o">.</span><span class="n">intensities_to_od_changes</span><span class="p">(</span><span class="n">intensities</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Delta OD shape: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dod</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Delta OD shape: (8, 1200)
+</pre></div></div>
+</div>
+</section>
+<section id="Get-channel-info-as-lists">
+<h2>Get channel info as lists<a class="headerlink" href="#Get-channel-info-as-lists" title="Link to this heading"></a></h2>
+<p>Get channel names from Simple Probe:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">channels</span> <span class="o">=</span> <span class="n">simple_probe</span><span class="p">[</span><span class="s1">&#39;SD&#39;</span><span class="p">][</span><span class="s1">&#39;MeasList&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">][:,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="n">raw_ch_names</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">ch</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;[&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;]&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="n">channels</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Channel names: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">raw_ch_names</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Channel names: [&#39;1-1&#39;, &#39;1-2&#39;, &#39;1-3&#39;, &#39;1-4&#39;, &#39;1-1&#39;, &#39;1-2&#39;, &#39;1-3&#39;, &#39;1-4&#39;]
+</pre></div></div>
+</div>
+<hr class="docutils" />
+<p>Get channel wavelengths from Simple Probe:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wavelengths</span> <span class="o">=</span> <span class="n">simple_probe</span><span class="p">[</span><span class="s1">&#39;SD&#39;</span><span class="p">][</span><span class="s1">&#39;Lambda&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="n">ch_high_wl</span> <span class="o">=</span> <span class="p">[</span><span class="n">wavelengths</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">raw_ch_names</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">))]</span>
+<span class="n">ch_low_wl</span> <span class="o">=</span> <span class="p">[</span><span class="n">wavelengths</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">raw_ch_names</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">))]</span>
+<span class="n">ch_wl</span> <span class="o">=</span> <span class="n">ch_high_wl</span> <span class="o">+</span> <span class="n">ch_low_wl</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Channel wavelengths: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ch_wl</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Channel wavelengths: [830, 830, 830, 830, 690, 690, 690, 690]
+</pre></div></div>
+</div>
+<hr class="docutils" />
+<p>Define the differential pathlengths factor (DPF) for each channel:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">unique_dpf</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="n">ch_dpf</span> <span class="o">=</span> <span class="p">[</span><span class="n">unique_dpf</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">raw_ch_names</span><span class="p">)]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Channel DPFs: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ch_dpf</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Channel DPFs: [6, 6, 6, 6, 6, 6, 6, 6]
+</pre></div></div>
+</div>
+<hr class="docutils" />
+<p>Define source-detector distance for each channel:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">unique_distance</span> <span class="o">=</span> <span class="mf">2.8</span>  <span class="c1"># cm</span>
+<span class="n">ch_distances</span> <span class="o">=</span> <span class="p">[</span><span class="n">unique_distance</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">raw_ch_names</span><span class="p">)]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Channel distances: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ch_distances</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Channel distances: [2.8, 2.8, 2.8, 2.8, 2.8, 2.8, 2.8, 2.8]
+</pre></div></div>
+</div>
+</section>
+<section id="Convert-optical-density-changes-to-concentration-changes">
+<h2>Convert optical density changes to concentration changes<a class="headerlink" href="#Convert-optical-density-changes-to-concentration-changes" title="Link to this heading"></a></h2>
+<p>Get oxygenated and deoxygenated hemoglobin concentration changes (HbO and HbR) with the modified Beer-Lambert law (from Delpy et al., 1988):</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">ns</span><span class="o">.</span><span class="n">mbll</span><span class="p">(</span><span class="n">dod</span><span class="p">,</span> <span class="n">raw_ch_names</span><span class="p">,</span> <span class="n">ch_wl</span><span class="p">,</span> <span class="n">ch_dpf</span><span class="p">,</span> <span class="n">ch_distances</span><span class="p">,</span>
+               <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;cm&#39;</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="s1">&#39;wray&#39;</span><span class="p">)</span>
+<span class="n">dc</span><span class="p">,</span> <span class="n">ch_names</span><span class="p">,</span> <span class="n">ch_types</span> <span class="o">=</span> <span class="n">data</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Delta HbO and HbR shape: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dc</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Channel names: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ch_names</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Channel types: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ch_types</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Delta HbO and HbR shape: (8, 1200)
+Channel names: [&#39;1-1&#39;, &#39;1-1&#39;, &#39;1-2&#39;, &#39;1-2&#39;, &#39;1-3&#39;, &#39;1-3&#39;, &#39;1-4&#39;, &#39;1-4&#39;]
+Channel types: [&#39;hbo&#39;, &#39;hbr&#39;, &#39;hbo&#39;, &#39;hbr&#39;, &#39;hbo&#39;, &#39;hbr&#39;, &#39;hbo&#39;, &#39;hbr&#39;]
+</pre></div></div>
+</div>
+<section id="Plot-data-with-MNE">
+<h3>Plot data with MNE<a class="headerlink" href="#Plot-data-with-MNE" title="Link to this heading"></a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mne</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">S_FREQ</span> <span class="o">=</span> <span class="mi">5</span>  <span class="c1"># sampling frequency in Hz</span>
+</pre></div>
+</div>
+</div>
+<p>Plot data with MNE:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mne_ch_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">ch</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">ch_types</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ch</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ch_names</span><span class="p">)]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MNE channel names: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mne_ch_names</span><span class="p">))</span>
+<span class="n">info</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">create_info</span><span class="p">(</span><span class="n">ch_names</span><span class="o">=</span><span class="n">mne_ch_names</span><span class="p">,</span> <span class="n">sfreq</span><span class="o">=</span><span class="n">S_FREQ</span><span class="p">,</span>
+                       <span class="n">ch_types</span><span class="o">=</span><span class="n">ch_types</span><span class="p">)</span>
+<span class="n">raw</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">RawArray</span><span class="p">(</span><span class="n">dc</span><span class="p">,</span> <span class="n">info</span><span class="p">)</span>
+<span class="n">graph</span> <span class="o">=</span> <span class="n">raw</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">scalings</span><span class="o">=</span><span class="mf">0.5e-6</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+MNE channel names: [&#39;1-1 hbo&#39;, &#39;1-1 hbr&#39;, &#39;1-2 hbo&#39;, &#39;1-2 hbr&#39;, &#39;1-3 hbo&#39;, &#39;1-3 hbr&#39;, &#39;1-4 hbo&#39;, &#39;1-4 hbr&#39;]
+Creating RawArray with float64 data, n_channels=8, n_times=1200
+    Range : 0 ... 1199 =      0.000 ...   239.800 secs
+Ready.
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_simple-probe_31_1.png" src="../_images/examples_simple-probe_31_1.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="Signal-correction">
+<h2>Signal correction<a class="headerlink" href="#Signal-correction" title="Link to this heading"></a></h2>
+<p>Apply correlation based signal improvement (from Cui at al., 2010) to hemoglobin concentration changes:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">ns</span><span class="o">.</span><span class="n">cbsi</span><span class="p">(</span><span class="n">dc</span><span class="p">,</span> <span class="n">ch_names</span><span class="p">,</span> <span class="n">ch_types</span><span class="p">)</span>
+<span class="n">dc_0</span><span class="p">,</span> <span class="n">ch_names_0</span><span class="p">,</span> <span class="n">ch_types_0</span> <span class="o">=</span> <span class="n">data</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Delta HbO_0 and HbR_0 shape: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dc_0</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ch_names_0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Delta HbO_0 and HbR_0 shape: (8, 1200)
+[&#39;1-1&#39;, &#39;1-1&#39;, &#39;1-2&#39;, &#39;1-2&#39;, &#39;1-3&#39;, &#39;1-3&#39;, &#39;1-4&#39;, &#39;1-4&#39;]
+</pre></div></div>
+</div>
+<section id="Plot-corrected-data-with-MNE">
+<h3>Plot corrected data with MNE<a class="headerlink" href="#Plot-corrected-data-with-MNE" title="Link to this heading"></a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mne_ch_names_0</span> <span class="o">=</span> <span class="p">[</span><span class="n">ch</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">ch_types_0</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;_0&#39;</span>
+                  <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ch</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ch_names_0</span><span class="p">)]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MNE channel names: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mne_ch_names_0</span><span class="p">))</span>
+<span class="n">info_0</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">create_info</span><span class="p">(</span><span class="n">ch_names</span><span class="o">=</span><span class="n">mne_ch_names_0</span><span class="p">,</span> <span class="n">sfreq</span><span class="o">=</span><span class="n">S_FREQ</span><span class="p">,</span>
+                         <span class="n">ch_types</span><span class="o">=</span><span class="n">ch_types_0</span><span class="p">)</span>
+<span class="n">raw_0</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">RawArray</span><span class="p">(</span><span class="n">dc_0</span><span class="p">,</span> <span class="n">info_0</span><span class="p">)</span>
+<span class="n">graph_0</span> <span class="o">=</span> <span class="n">raw_0</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">scalings</span><span class="o">=</span><span class="mf">0.5e-6</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+MNE channel names: [&#39;1-1 hbo_0&#39;, &#39;1-1 hbr_0&#39;, &#39;1-2 hbo_0&#39;, &#39;1-2 hbr_0&#39;, &#39;1-3 hbo_0&#39;, &#39;1-3 hbr_0&#39;, &#39;1-4 hbo_0&#39;, &#39;1-4 hbr_0&#39;]
+Creating RawArray with float64 data, n_channels=8, n_times=1200
+    Range : 0 ... 1199 =      0.000 ...   239.800 secs
+Ready.
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_simple-probe_36_1.png" src="../_images/examples_simple-probe_36_1.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../example.html" class="btn btn-neutral float-left" title="Example" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020-2024, Johann Benerradi.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

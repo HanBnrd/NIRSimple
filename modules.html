@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NIRSimple API &mdash; NIRSimple 0.1.6 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=6e0256f3"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Example" href="example.html" />
+    <link rel="prev" title="Install" href="install.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            NIRSimple
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">NIRSimple API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-preprocessing">preprocessing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#preprocessing.intensities_to_od_changes"><code class="docutils literal notranslate"><span class="pre">intensities_to_od_changes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#preprocessing.od_to_od_changes"><code class="docutils literal notranslate"><span class="pre">od_to_od_changes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#preprocessing.get_dpf"><code class="docutils literal notranslate"><span class="pre">get_dpf()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#preprocessing.mbll"><code class="docutils literal notranslate"><span class="pre">mbll()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-processing">processing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#processing.cbsi"><code class="docutils literal notranslate"><span class="pre">cbsi()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="example.html">Example</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">NIRSimple</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">NIRSimple API</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/modules.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="nirsimple-api">
+<h1>NIRSimple API<a class="headerlink" href="#nirsimple-api" title="Link to this heading"></a></h1>
+<section id="module-preprocessing">
+<span id="preprocessing"></span><h2>preprocessing<a class="headerlink" href="#module-preprocessing" title="Link to this heading"></a></h2>
+<p>The preprocessing module contains functions to preprocess fNIRS signals.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="preprocessing.intensities_to_od_changes">
+<span class="sig-prename descclassname"><span class="pre">preprocessing.</span></span><span class="sig-name descname"><span class="pre">intensities_to_od_changes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">intensities</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preprocessing.intensities_to_od_changes" title="Link to this definition"></a></dt>
+<dd><p>Converts intensities into optical density changes. Changes are relative
+to the average intensity or a reference intensity for each channel.</p>
+<blockquote>
+<div><p>Optical density from light intensity:
+OD = log10(I_0/I_t)</p>
+<p>Optical density changes relative to average transmitted intensity:
+delta_OD = log10(I_0/I_t) - log10(I_0/I_average)
+delta_OD = -log10(I_t/I_average)</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>intensities</strong> (<em>array</em>) – numpy array of absolute intensities, must have the correct shape
+(channels, data points).</p></li>
+<li><p><strong>refs</strong> (<em>list</em><em> of </em><em>floats</em>) – List of reference intensities to use instead of averages, length
+must be equal to the number of channels.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>delta_od</strong> – numpy array of optical density changes, relative to average
+intensities or a reference for each channel, of shape (channels, data
+points).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="preprocessing.od_to_od_changes">
+<span class="sig-prename descclassname"><span class="pre">preprocessing.</span></span><span class="sig-name descname"><span class="pre">od_to_od_changes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">optical_densities</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preprocessing.od_to_od_changes" title="Link to this definition"></a></dt>
+<dd><p>Convert optical densities into optical density changes, relative to the
+average optical density or a reference optical density for each channel.</p>
+<blockquote>
+<div><p>Optical density changes relative to average optical density:
+delta_OD = OD - OD_average</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>optical_densities</strong> (<em>array</em>) – numpy array of optical densities, must have the correct shape
+(channels, data points).</p></li>
+<li><p><strong>refs</strong> (<em>list</em><em> of </em><em>floats</em>) – List of reference optical densities to use instead of averages, length
+must be equal to the number of channels.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>delta_od</strong> – numpy array of optical density changes, relative to average optical
+densities or a reference for each channel, of shape (channels, data
+points).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="preprocessing.get_dpf">
+<span class="sig-prename descclassname"><span class="pre">preprocessing.</span></span><span class="sig-name descname"><span class="pre">get_dpf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wavelength</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">age</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preprocessing.get_dpf" title="Link to this definition"></a></dt>
+<dd><p>Get the differential pathlength factor (DPF) from wavelength and age using
+the general equation from Scholkmann &amp; Wolf, 2013.</p>
+<blockquote>
+<div><p>General DPF equation:
+DPF = (223.3
++ 0.05624*age**0.8493
+- 5.723e-7*wavelength**3
++ 0.001245*wavelength**2
+- 0.9025*wavelength)</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wavelength</strong> (<em>float</em>) – Wavelength in nm.</p></li>
+<li><p><strong>age</strong> (<em>float</em>) – Participant’s age in years.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>dpf</strong> – Differential pathlength factor (DPF).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="preprocessing.mbll">
+<span class="sig-prename descclassname"><span class="pre">preprocessing.</span></span><span class="sig-name descname"><span class="pre">mbll</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta_od</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ch_names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ch_wls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ch_dpfs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ch_distances</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'wray'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preprocessing.mbll" title="Link to this definition"></a></dt>
+<dd><p>Apply the modified Beer-Lambert law (from Delpy et al., 1988) to optical
+density changes in order to obtain concentration changes in oxygenated
+hemoglobin (HbO) and deoxygenated hemoglobin (HbR).</p>
+<blockquote>
+<div><p>Modified Beer-Lambert law:
+Dod_wl = e_HbO_wl*Dc_HbO*l*DPF_wl + e_HbR_wl*Dc_HbR*l*DPF_wl</p>
+<p>With two different wavelengths we obtain a set of linear equations
+solved with matrices:
+[[Dod_1]  = [[e_HbO_1*l*DPF_1, e_HbR_1*l*DPF_1]  . [[Dc_HbO]
+[Dod_2]]    [e_HbO_2*l*DPF_2, e_HbR_2*l*DPF_2]]    [Dc_HbR]]</p>
+<p>Equivalent to:
+[[Dc_HbO]  = [[e_HbO_1, e_HbR_1] -1 . [[Dod_1/(l*DPF_1)]
+[DC_HbR]]    [e_HbO_2, e_HbR_2]]      [Dod_2/(l*DPF_2)]]</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>delta_od</strong> (<em>array</em>) – numpy array of optical density changes, relative to average
+intensities for each channel, of shape (channels, data points).</p></li>
+<li><p><strong>ch_names</strong> (<em>list</em><em> of </em><em>strings</em>) – List of channel names.</p></li>
+<li><p><strong>ch_wls</strong> (<em>list</em><em> of </em><em>integers</em>) – List of channel wavelengths (in nm).</p></li>
+<li><p><strong>ch_dpfs</strong> (<em>list</em><em> of </em><em>floats</em>) – List of channel differential pathlength factors (DPF) (or partial
+pathlength factors (PPF)).</p></li>
+<li><p><strong>ch_distances</strong> (<em>list</em><em> of </em><em>floats</em>) – List of channel source-detector distances.</p></li>
+<li><p><strong>unit</strong> (<em>string</em>) – Unit for ch_distances (‘cm’ or ‘mm’).</p></li>
+<li><p><strong>table</strong> (<em>string</em>) – Table to use as molar extinction coefficients.
+‘wray’: data from S. Wray et al., 1988
+‘cope’: data from M. Cope, 1991
+‘gratzer’: data from W.B. Gratzer and K. Kollias compiled by S. Prahl
+‘moaveni’: data from M.K. Moaveni and J.M. Schmitt compiled by S. Prahl
+‘takatani’: data from S. Takatani and M.D. Graham compiled by S. Prahl</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>delta_c</strong> (<em>array</em>) – numpy array of hemoglobin concentration changes in [moles/liter] or [M]
+for each channel, of shape (channels, data points).</p></li>
+<li><p><strong>new_ch_names</strong> (<em>list of strings</em>) – New list of channel names.</p></li>
+<li><p><strong>new_ch_types</strong> (<em>list of strings</em>) – New list of channel types (‘hbo’ for oxygenated hemoglobin and ‘hbr’
+for deoxygenated hemoglobin).</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-processing">
+<span id="processing"></span><h2>processing<a class="headerlink" href="#module-processing" title="Link to this heading"></a></h2>
+<p>The processing module contains functions to process fNIRS signals.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="processing.cbsi">
+<span class="sig-prename descclassname"><span class="pre">processing.</span></span><span class="sig-name descname"><span class="pre">cbsi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta_c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ch_names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ch_types</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#processing.cbsi" title="Link to this definition"></a></dt>
+<dd><p>Apply correlation based signal improvement (from Cui at al., 2010) to
+hemoglobin concentration changes.</p>
+<blockquote>
+<div><p>Correlation based signal improvement (CBSI):
+x_0 = (1/2)*(x-alpha*x)
+y_0 = -(1/alpha)*x_0</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>delta_c</strong> (<em>array</em>) – numpy array of hemoglobin concentration changes in [moles/liter] or [M]
+for each channel, of shape (channels, data points).</p></li>
+<li><p><strong>ch_names</strong> (<em>list</em><em> of </em><em>strings</em>) – List of channel names.</p></li>
+<li><p><strong>ch_types</strong> (<em>list</em><em> of </em><em>strings</em>) – List of channel types (‘hbo’ for oxygenated hemoglobin and ‘hbr’ for
+deoxygenated hemoglobin).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>delta_c_0</strong> (<em>array</em>) – numpy array of corrected activation signals in [moles/liter] or [M] for
+each channel, of shape (channels, data points).</p></li>
+<li><p><strong>new_ch_names</strong> (<em>list of strings</em>) – New list of channel names.</p></li>
+<li><p><strong>new_ch_types</strong> (<em>list of strings</em>) – New list of channel types (‘hbo’ for oxygenated hemoglobin and ‘hbr’
+for deoxygenated hemoglobin).</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="install.html" class="btn btn-neutral float-left" title="Install" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="example.html" class="btn btn-neutral float-right" title="Example" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020-2024, Johann Benerradi.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
