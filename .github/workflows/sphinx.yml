@@ -11,23 +11,23 @@ jobs:
   docs:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
       - name: Install dependencies
         run: |
           sudo apt install pandoc
           python -m pip install --upgrade pip
-          pip install sphinx sphinx_rtd_theme nbsphinx
+          pip install sphinx sphinx_rtd_theme ipython nbsphinx
       - name: Sphinx build
         run: |
           sphinx-build -b html docs/source public
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: html-docs
           path: public
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         if: github.ref == 'refs/heads/master'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
