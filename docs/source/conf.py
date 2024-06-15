@@ -24,7 +24,7 @@ copyright = f'2020-{current_year}, Johann Benerradi'
 author = 'Johann Benerradi'
 
 # The full version, including alpha/beta/rc tags
-release = '0.1.5'
+release = '0.1.6'
 
 
 # -- General configuration ---------------------------------------------------
@@ -34,7 +34,8 @@ release = '0.1.5'
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
-    'sphinx.ext.napoleon'
+    'sphinx.ext.napoleon',
+    'nbsphinx'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -64,3 +65,8 @@ autodoc_mock_imports = [
     'numpy',
     'pandas',
     'scipy']
+
+
+# -- Other parameters --------------------------------------------------------
+
+autodoc_member_order = 'bysource'
