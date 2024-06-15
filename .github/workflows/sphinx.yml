@@ -17,7 +17,7 @@ jobs:
         run: |
           sudo apt install pandoc
           python -m pip install --upgrade pip
-          pip install sphinx sphinx_rtd_theme nbsphinx
+          pip install sphinx sphinx_rtd_theme ipython nbsphinx
       - name: Sphinx build
         run: |
           sphinx-build -b html docs/source public
