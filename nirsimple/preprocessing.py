@@ -168,6 +168,40 @@ def od_to_od_changes(optical_densities, refs=None):
     return delta_od
 
 
+def get_dpf(wavelength, age):
+    """
+    Get the differential pathlength factor (DPF) from wavelength and age using
+    the general equation from Scholkmann & Wolf, 2013.
+
+        General DPF equation:
+        DPF = (223.3
+        + 0.05624*age**0.8493
+        - 5.723e-7*wavelength**3
+        + 0.001245*wavelength**2
+        - 0.9025*wavelength)
+
+    Parameters
+    ----------
+    wavelength : float
+        Wavelength in nm.
+
+    age : float
+        Participant's age in years.
+
+    Returns
+    -------
+    dpf : float
+        Differential pathlength factor (DPF).
+    """
+    dpf = (223.3
+           + 0.05624*age**0.8493
+           - 5.723e-7*wavelength**3
+           + 0.001245*wavelength**2
+           - 0.9025*wavelength)
+
+    return dpf
+
+
 def mbll(delta_od, ch_names, ch_wls, ch_dpfs, ch_distances, unit,
          table='wray'):
     """
@@ -200,8 +234,8 @@ def mbll(delta_od, ch_names, ch_wls, ch_dpfs, ch_distances, unit,
         List of channel wavelengths (in nm).
 
     ch_dpfs : list of floats
-        List of channel differential pathlength factors (DPF) (also called
-        partial pathlengths factors (PPF)).
+        List of channel differential pathlength factors (DPF) (or partial
+        pathlength factors (PPF)).
 
     ch_distances : list of floats
         List of channel source-detector distances.
